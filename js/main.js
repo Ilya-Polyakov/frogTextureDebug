@@ -3,7 +3,7 @@ var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHe
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setClearColor(0x005001, 1);
+renderer.setClearColor(0xd17ef0, 1);
 document.body.appendChild( renderer.domElement );
 
 $(window).on('resize', function(){
@@ -12,7 +12,6 @@ $(window).on('resize', function(){
 
 	 renderer.setSize( window.innerWidth, window.innerHeight );
  });
-
 
 // instantiate a loader
 var loader = new THREE.JSONLoader();
