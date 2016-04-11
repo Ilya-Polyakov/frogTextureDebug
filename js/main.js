@@ -13,23 +13,27 @@ $(window).on('resize', function(){
 	 renderer.setSize( window.innerWidth, window.innerHeight );
  });
 
-// instantiate a loader
-var loader = new THREE.JSONLoader();
 var frog;
-// load a resource
-loader.load(
-	// resource URL
-	'../models/frogTexture.json',
-	// Function when resource is loaded
-	function ( geometry, materials ) {
-		var material = new THREE.MultiMaterial( materials );
-		var otherMaterial =  new THREE.MeshPhongMaterial( { color: 0xddd000, specular: 0xEE0000, shininess: 3, reflectivity: 10} );
-		frog = new THREE.Mesh( geometry, material );
-		frog.rotation.y = 3;
-		frog.scale.set( .25, .25, .25 );
-		scene.add( frog );
-	}
-);
+
+var loader = new THREE.JSONLoader();
+var params = {
+  meshPath: 'frogMesh.json',
+  texPath: 'frogTexture.png'
+};
+
+loader.load("../models/"+params.meshPath, function(geom,materials) {
+    var texture = new THREE.TextureLoader().load( "../models/"+params.texPath , function(texture){
+
+			var material = THREE.MeshPhongMaterial( {
+			        color: 0xfffffff,
+			        shininess: 10,
+			        map:texture,
+			        shading: THREE.FlatShading
+			});
+			var mesh = new THREE.Mesh(geometry,material);
+			    scene.add(mesh);
+		});
+});
 
 var light = new THREE.DirectionalLight('white',1);
 light.position.set(20,20,20).normalize();
@@ -41,9 +45,9 @@ function render() {
 	requestAnimationFrame( render );
   //
 	if (frog) {
-		frog.rotation.x += 0.009;
-		frog.rotation.y += 0.009;
-		frog.rotation.z += 0.009;
+		// frog.rotation.x += 0.009;
+		// frog.rotation.y += 0.009;
+		// frog.rotation.z += 0.009;
 	}
 
 	renderer.render( scene, camera );
