@@ -3,7 +3,7 @@ var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHe
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setClearColor(0xd17ef0, 1);
+renderer.setClearColor(0xffe921, 1);
 document.body.appendChild( renderer.domElement );
 
 $(window).on('resize', function(){
@@ -13,7 +13,7 @@ $(window).on('resize', function(){
 	 renderer.setSize( window.innerWidth, window.innerHeight );
  });
 
-var frog;
+var frogMesh;
 
 var loader = new THREE.JSONLoader();
 var params = {
@@ -24,14 +24,15 @@ var params = {
 loader.load("../models/"+params.meshPath, function(geom,materials) {
     var texture = new THREE.TextureLoader().load( "../models/"+params.texPath , function(texture){
 
-			var material = THREE.MeshPhongMaterial( {
+			var material = new THREE.MeshPhongMaterial( {
 			        color: 0xfffffff,
 			        shininess: 10,
 			        map:texture,
 			        shading: THREE.FlatShading
 			});
-			var mesh = new THREE.Mesh(geometry,material);
-			    scene.add(mesh);
+			frogMesh = new THREE.Mesh(geom,material);
+					frogMesh.scale.set(.25,.25,.25);
+			    scene.add(frogMesh);
 		});
 });
 
@@ -44,10 +45,9 @@ camera.position.z = 5;
 function render() {
 	requestAnimationFrame( render );
   //
-	if (frog) {
-		// frog.rotation.x += 0.009;
-		// frog.rotation.y += 0.009;
-		// frog.rotation.z += 0.009;
+	if (frogMesh) {
+		frogMesh.rotation.x += 0.009;
+		frogMesh.rotation.y += 0.009;
 	}
 
 	renderer.render( scene, camera );
