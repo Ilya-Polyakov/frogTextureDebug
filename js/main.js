@@ -21,8 +21,8 @@ var params = {
   texPath: 'frogTexture.png'
 };
 
-loader.load("../models/"+params.meshPath, function(geom,materials) {
-    var texture = new THREE.TextureLoader().load( "../models/"+params.texPath , function(texture){
+loader.load("../models/frog/"+params.meshPath, function(geom,materials) {
+    var texture = new THREE.TextureLoader().load( "../models/frog/"+params.texPath , function(texture){
 
 			var material = new THREE.MeshPhongMaterial( {
 			        color: 0xfffffff,
@@ -32,12 +32,14 @@ loader.load("../models/"+params.meshPath, function(geom,materials) {
 			});
 			frogMesh = new THREE.Mesh(geom,material);
 					frogMesh.scale.set(.25,.25,.25);
+					frogMesh.rotation.y += 3;
+					frogMesh.rotation.x += .3;
 			    scene.add(frogMesh);
 		});
 });
 
 var light = new THREE.DirectionalLight('white',1);
-light.position.set(20,20,20).normalize();
+light.position.set(-75,200,20000).normalize();
 scene.add(light);
 
 camera.position.z = 5;
@@ -46,8 +48,9 @@ function render() {
 	requestAnimationFrame( render );
   //
 	if (frogMesh) {
-	//	frogMesh.rotation.x += 0.009;
-		frogMesh.rotation.y += 0.009;
+		frogMesh.rotation.x += 0.001;
+		frogMesh.rotation.y += 0.0009;
+		frogMesh.rotation.z += 0.00009;
 	}
 
 	renderer.render( scene, camera );
