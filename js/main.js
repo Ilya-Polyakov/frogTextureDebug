@@ -46,7 +46,7 @@ function render() {
 	requestAnimationFrame( render );
   //
 	if (frogMesh) {
-		frogMesh.rotation.x += 0.009;
+	//	frogMesh.rotation.x += 0.009;
 		frogMesh.rotation.y += 0.009;
 	}
 
